@@ -1,25 +1,25 @@
 class Scrapwell < Formula
   desc "MCP memory server for LLM agents"
   homepage "https://github.com/argonism/scrapwell"
-  version "0.1.0"
+  version "0.1.1"
   if OS.mac?
     if Hardware::CPU.arm?
-      url "https://github.com/argonism/scrapwell/releases/download/v0.1.0/scrapwell-aarch64-apple-darwin.tar.xz"
-      sha256 "dd6955d006babd4b0dacf9bbf9137135a32cad4498d0a68aa12e7e46674e4ed0"
+      url "https://github.com/argonism/scrapwell/releases/download/v0.1.1/scrapwell-aarch64-apple-darwin.tar.xz"
+      sha256 "4558b41f8ccb08737b623d10753adfa365a0f592baa008028672d638aa982ba6"
     end
     if Hardware::CPU.intel?
-      url "https://github.com/argonism/scrapwell/releases/download/v0.1.0/scrapwell-x86_64-apple-darwin.tar.xz"
-      sha256 "7487dff31e4017c4e21400d5f41a50c71bdf00f2ee2e9b31299aabf5b61bdf82"
+      url "https://github.com/argonism/scrapwell/releases/download/v0.1.1/scrapwell-x86_64-apple-darwin.tar.xz"
+      sha256 "5253c7ff355a2c7918afb8ea6289e83cbfa7399ad053b2dde22d59e5135ecc4c"
     end
   end
   if OS.linux?
     if Hardware::CPU.arm?
-      url "https://github.com/argonism/scrapwell/releases/download/v0.1.0/scrapwell-aarch64-unknown-linux-gnu.tar.xz"
-      sha256 "3b67731214b8dbf3e4f026197a947fbc4d6bbbcbf4e6debbb0d0f4f7ac16d476"
+      url "https://github.com/argonism/scrapwell/releases/download/v0.1.1/scrapwell-aarch64-unknown-linux-gnu.tar.xz"
+      sha256 "e926596a2d7f143c706adb0b1908c423cff22d64a5152d0f33b1e9718e57954f"
     end
     if Hardware::CPU.intel?
-      url "https://github.com/argonism/scrapwell/releases/download/v0.1.0/scrapwell-x86_64-unknown-linux-gnu.tar.xz"
-      sha256 "18d8a0bb74ae3832e20176e51f5ee13f899f18572457d26241658d60927cce90"
+      url "https://github.com/argonism/scrapwell/releases/download/v0.1.1/scrapwell-x86_64-unknown-linux-gnu.tar.xz"
+      sha256 "bd0829c8e3e372d40597b86377f55813fa36351f34a5da3587c84717a2b8919f"
     end
   end
   license "MIT"
