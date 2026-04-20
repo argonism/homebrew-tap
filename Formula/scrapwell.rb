@@ -1,66 +1,36 @@
 class Scrapwell < Formula
   desc "MCP memory server for LLM agents"
   homepage "https://github.com/argonism/scrapwell"
-  version "0.1.1"
-  if OS.mac?
-    if Hardware::CPU.arm?
-      url "https://github.com/argonism/scrapwell/releases/download/v0.1.1/scrapwell-aarch64-apple-darwin.tar.xz"
-      sha256 "4558b41f8ccb08737b623d10753adfa365a0f592baa008028672d638aa982ba6"
-    end
-    if Hardware::CPU.intel?
-      url "https://github.com/argonism/scrapwell/releases/download/v0.1.1/scrapwell-x86_64-apple-darwin.tar.xz"
-      sha256 "5253c7ff355a2c7918afb8ea6289e83cbfa7399ad053b2dde22d59e5135ecc4c"
-    end
-  end
-  if OS.linux?
-    if Hardware::CPU.arm?
-      url "https://github.com/argonism/scrapwell/releases/download/v0.1.1/scrapwell-aarch64-unknown-linux-gnu.tar.xz"
-      sha256 "e926596a2d7f143c706adb0b1908c423cff22d64a5152d0f33b1e9718e57954f"
-    end
-    if Hardware::CPU.intel?
-      url "https://github.com/argonism/scrapwell/releases/download/v0.1.1/scrapwell-x86_64-unknown-linux-gnu.tar.xz"
-      sha256 "bd0829c8e3e372d40597b86377f55813fa36351f34a5da3587c84717a2b8919f"
-    end
-  end
+  version "0.1.2"
   license "MIT"
 
-  BINARY_ALIASES = {
-    "aarch64-apple-darwin":      {},
-    "aarch64-unknown-linux-gnu": {},
-    "x86_64-apple-darwin":       {},
-    "x86_64-pc-windows-gnu":     {},
-    "x86_64-unknown-linux-gnu":  {},
-  }.freeze
-
-  def target_triple
-    cpu = Hardware::CPU.arm? ? "aarch64" : "x86_64"
-    os = OS.mac? ? "apple-darwin" : "unknown-linux-gnu"
-
-    "#{cpu}-#{os}"
+  on_macos do
+    on_arm do
+      url "https://github.com/argonism/scrapwell/releases/download/v0.1.2/scrapwell-v0.1.2-aarch64-apple-darwin.tar.gz"
+      sha256 "caba5928994d51d57f215c0e73a1ff4dd60692ef2c59678af966332b7130b401"
+    end
+    on_intel do
+      url "https://github.com/argonism/scrapwell/releases/download/v0.1.2/scrapwell-v0.1.2-x86_64-apple-darwin.tar.gz"
+      sha256 "2c453261d691206a237f05846ba5e6e6ee15eb810e69279b400f3a87ec0e6376"
+    end
   end
 
-  def install_binary_aliases!
-    BINARY_ALIASES[target_triple.to_sym].each do |source, dests|
-      dests.each do |dest|
-        bin.install_symlink bin/source.to_s => dest
-      end
+  on_linux do
+    on_arm do
+      url "https://github.com/argonism/scrapwell/releases/download/v0.1.2/scrapwell-v0.1.2-aarch64-unknown-linux-gnu.tar.gz"
+      sha256 "aa715e0428101e9b87786dd677c36dd72555983d036c475b732d23553a39c61c"
+    end
+    on_intel do
+      url "https://github.com/argonism/scrapwell/releases/download/v0.1.2/scrapwell-v0.1.2-x86_64-unknown-linux-gnu.tar.gz"
+      sha256 "8254333c07d91c6cca18baa6b8587697d16ff5709817f6bc6ae053a0472decc0"
     end
   end
 
   def install
-    bin.install "scrapwell" if OS.mac? && Hardware::CPU.arm?
-    bin.install "scrapwell" if OS.mac? && Hardware::CPU.intel?
-    bin.install "scrapwell" if OS.linux? && Hardware::CPU.arm?
-    bin.install "scrapwell" if OS.linux? && Hardware::CPU.intel?
+    bin.install "scrapwell"
+  end
 
-    install_binary_aliases!
-
-    # Homebrew will automatically install these, so we don't need to do that
-    doc_files = Dir["README.*", "readme.*", "LICENSE", "LICENSE.*", "CHANGELOG.*"]
-    leftover_contents = Dir["*"] - doc_files
-
-    # Install any leftover files in pkgshare; these are probably config or
-    # sample files.
-    pkgshare.install(*leftover_contents) unless leftover_contents.empty?
+  test do
+    system "#{bin}/scrapwell", "--version"
   end
 end
